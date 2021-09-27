@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@PropertySource("classpath:oracleApplication.properties")
+@PropertySource({"classpath:oracleApplication.properties","classpath:application.yml","classpath:oraclePROD.properties"})
 //@PropertySource("classpath:h2DBApplication.properties")
 public class JDBCDataBaseConfiguration {
 
@@ -24,7 +25,8 @@ public class JDBCDataBaseConfiguration {
 	// DataSoureBuilder
 
 	@Bean
-	@Primary
+	//@Primary
+	@Profile("dev")
 	public DataSource getDataSource() {
 
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -33,6 +35,23 @@ public class JDBCDataBaseConfiguration {
 		dataSource.setUrl(env.getProperty("db.url"));
 		dataSource.setUsername(env.getProperty("db.userName"));
 		dataSource.setPassword(env.getProperty("db.password"));
+		// dataSource.setConnectionProperties(getProperties());
+
+		return dataSource;
+	}
+	
+	@Bean
+	@Profile("prod")
+	
+	public DataSource getDataSource_Prod() {
+
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
+		dataSource.setUrl(env.getProperty("prod.url"));
+		String property = env.getProperty("prod.driverName");
+		dataSource.setDriverClassName(property);
+		dataSource.setUsername(env.getProperty("prod.userName"));
+		dataSource.setPassword(env.getProperty("prod.password"));
 		// dataSource.setConnectionProperties(getProperties());
 
 		return dataSource;

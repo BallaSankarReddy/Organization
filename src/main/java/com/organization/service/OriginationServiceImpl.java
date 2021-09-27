@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.organization.enitity.Organization;
+import com.organization.exception.ValidationException;
 import com.organization.repository.OrganizationRepository;
 
 @Service
@@ -18,7 +19,8 @@ public class OriginationServiceImpl implements OrganizationService {
 
 	@Override
 	public List<Organization> getOriginations() {
-		return organizationRepository.getOrganizations();
+		List<Organization> organizations = organizationRepository.getOrganizations();
+		return organizations;
 	}
 
 
@@ -39,7 +41,14 @@ public class OriginationServiceImpl implements OrganizationService {
 
 	@Override
 	public Organization getOrganizationById(Integer orgId) {
-		return organizationRepository.getOrganizationById(orgId);
+		Organization organizationById = organizationRepository.getOrganizationById(orgId);
+		
+		if(!Optional.ofNullable(organizationById).isPresent()) {
+			
+			throw new ValidationException(String.format("Organization not found:%s",orgId))  ;
+			
+		}
+		return organizationById;
 	}
 
 }

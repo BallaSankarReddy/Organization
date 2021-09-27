@@ -45,7 +45,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Employee getEmployeeByIdWithOrgName(Integer empId, String orgName) {
-		// TODO Auto-generated method stub
 		return employeeRepository.getEmployeeByIdWithOrgName(empId, orgName);
 	}
 

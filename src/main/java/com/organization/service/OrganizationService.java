@@ -8,5 +8,5 @@ public interface OrganizationService {
 	
 	public List<Organization> getOriginations();
 	public Organization saveOrigination(Organization organization);
-	public Organization getOrganizationById(Integer orgId);
+	public Organization getOrganizationById(Integer orgId) ;
 }

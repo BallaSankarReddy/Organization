@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.organization.enitity.Organization;
+import com.organization.exception.ValidationException;
 import com.organization.service.OrganizationService;
 @RequestMapping("/api/origination")
 @RestController
@@ -25,10 +26,13 @@ public class OrganizationControllerImpl implements OrganizationController {
 	}
 
 	@Override
-	public Organization saveOrigination(Organization organization) {
+	public Organization saveOrigination(Organization organization)  {
+		
+		Organization organizationById = organizationService.getOrganizationById(organization.getId());
 
 		logger.info("Saving Organization details : ");
-		return organizationService.saveOrigination(organization);
+		return organizationById;
+				//organizationService.saveOrigination(organization);
 	}
 
 }
