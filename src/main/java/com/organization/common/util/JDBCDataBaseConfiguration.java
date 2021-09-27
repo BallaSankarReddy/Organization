@@ -57,18 +57,4 @@ public class JDBCDataBaseConfiguration {
 		return dataSource;
 	}
 
-	/*
-	 * @Bean public DataSource getDataSourceForH2DataBase() {
-	 * 
-	 * DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	 * 
-	 * dataSource.setDriverClassName(env.getProperty("h2.datasource.driverClassName"
-	 * )); dataSource.setUrl(env.getProperty("h2.datasource.url"));
-	 * dataSource.setUsername(env.getProperty("h2.datasource.username"));
-	 * dataSource.setPassword(env.getProperty("h2.datasource.password")); //
-	 * dataSource.setConnectionProperties(getProperties());
-	 * 
-	 * return dataSource; }
-	 */
-
 }
